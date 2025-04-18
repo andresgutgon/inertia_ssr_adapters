@@ -58,7 +58,10 @@ defmodule InertiaSsrAdapters.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:inertia,
+       git: "https://github.com/andresgutgon/inertia-phoenix.git",
+       branch: "feature/inertia-vitejs-integration"}
     ]
   end
 
@@ -75,10 +78,11 @@ defmodule InertiaSsrAdapters.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind inertia_ssr_adapters", "esbuild inertia_ssr_adapters"],
+      "assets.build": ["tailwind app", "esbuild app", "esbuild ssr"],
       "assets.deploy": [
-        "tailwind inertia_ssr_adapters --minify",
-        "esbuild inertia_ssr_adapters --minify",
+        "tailwind app --minify",
+        "esbuild app --minify",
+        "esbuild ssr",
         "phx.digest"
       ]
     ]

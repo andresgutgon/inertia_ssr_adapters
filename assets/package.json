@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@inertiajs/react": "^2.0.8",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/phoenix": "^1.6.5",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "typescript": "^5.7.0"
+  }
+}

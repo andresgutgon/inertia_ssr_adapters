@@ -22,6 +22,15 @@ config :inertia_ssr_adapters, InertiaSsrAdaptersWeb.Endpoint,
   pubsub_server: InertiaSsrAdapters.PubSub,
   live_view: [signing_salt: "Avb3owxs"]
 
+config :inertia,
+  endpoint: InertiaSsrAdaptersWeb.Endpoint,
+  static_paths: ["/assets/app.js"],
+  default_version: "1",
+  camelize_props: true,
+  history: [encrypt: false],
+  ssr: false,
+  raise_on_ssr_failure: config_env() != :prod
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -34,9 +43,14 @@ config :inertia_ssr_adapters, InertiaSsrAdapters.Mailer, adapter: Swoosh.Adapter
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
-  inertia_ssr_adapters: [
+  app: [
     args:
-      ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets/js --external:/fonts/* --external:/images/*),
+      ~w(js/app.tsx --bundle --target=es2020 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ],
+  ssr: [
+    args: ~w(js/ssr.tsx --bundle --platform=node --outdir=../priv --format=cjs),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
@@ -44,7 +58,7 @@ config :esbuild,
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "4.0.9",
-  inertia_ssr_adapters: [
+  app: [
     args: ~w(
       --input=assets/css/app.css
       --output=priv/static/assets/css/app.css

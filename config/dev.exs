@@ -2,10 +2,11 @@ import Config
 
 # Configure your database
 config :inertia_ssr_adapters, InertiaSsrAdapters.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "inertia_ssr_adapters_user",
+  password: "secret",
   hostname: "localhost",
   database: "inertia_ssr_adapters_dev",
+  port: 5436,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -25,8 +26,9 @@ config :inertia_ssr_adapters, InertiaSsrAdaptersWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "KH61P/MTJRLbca/b2Ri2gER9fP+Y1GVEdCXZd6BNCUFkZicQX6BlLmwDd7OlhMaG",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:inertia_ssr_adapters, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:inertia_ssr_adapters, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:app, ~w(--sourcemap=inline --watch)]},
+    ssr: {Esbuild, :install_and_run, [:ssr, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:app, ~w(--watch)]}
   ]
 
 # ## SSL Support

@@ -1,18 +1,23 @@
-# InertiaSsrAdapters
+# What is this?
+This repository is testing that standard [Elixir Phoenix](https://github.com/inertiajs/inertia-phoenix) keep working as expected after the [introduction of the SSR adapters in this PR](https://github.com/inertiajs/inertia-phoenix/pull/44)
 
-To start your Phoenix server:
+## How to setup development?
+After cloning this repo. This asume you have a postgres database running locally (or in a docker container).
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+```
+mix deps.get
+mix ecto.create
+mix ecto.migrate
+mix ecto.migrate --migrations-path priv/repo/data_migrations
+```
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+After this you can run the server with:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+```
+mix phx.server
+```
 
-## Learn more
+## How to test a production setup?
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+This repo have releases setup. You can build a release with:
+

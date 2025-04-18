@@ -10,12 +10,14 @@ defmodule InertiaSsrAdapters.Application do
     children = [
       InertiaSsrAdaptersWeb.Telemetry,
       InertiaSsrAdapters.Repo,
-      {DNSCluster, query: Application.get_env(:inertia_ssr_adapters, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:inertia_ssr_adapters, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: InertiaSsrAdapters.PubSub},
       # Start a worker by calling: InertiaSsrAdapters.Worker.start_link(arg)
       # {InertiaSsrAdapters.Worker, arg},
       # Start to serve requests, typically the last entry
-      InertiaSsrAdaptersWeb.Endpoint
+      InertiaSsrAdaptersWeb.Endpoint,
+      {Inertia.SSR, path: Path.join([Application.app_dir(:inertia_ssr_adapters), "priv"])}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
