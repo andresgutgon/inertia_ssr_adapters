@@ -1,6 +1,8 @@
 # What is this?
 This repository is testing that standard [Elixir Phoenix](https://github.com/inertiajs/inertia-phoenix) keep working as expected after the [introduction of the SSR adapters in this PR](https://github.com/inertiajs/inertia-phoenix/pull/44)
 
+# The app
+It's a basic endpoint rendering a React page on SSR
 ![App screenshot](./app-screenshot.jpg)
 
 ## How to setup development?
