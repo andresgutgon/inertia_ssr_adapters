@@ -10,7 +10,11 @@ defmodule InertiaSsrAdapters.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      listeners: [Phoenix.CodeReloader]
+      listeners:
+        case Mix.env() do
+          :dev -> [Phoenix.CodeReloader]
+          _ -> []
+        end
     ]
   end
 

@@ -5,19 +5,40 @@ This repository is testing that standard [Elixir Phoenix](https://github.com/ine
 After cloning this repo. This asume you have a postgres database running locally (or in a docker container).
 
 ```
-mix deps.get
-mix ecto.create
-mix ecto.migrate
-mix ecto.migrate --migrations-path priv/repo/data_migrations
-```
+# Start postgresql db + phoenix app
+docker compose up
 
-After this you can run the server with:
+# Run the migrations
+docker compose run web mix ecto.migrate
 
-```
-mix phx.server
+# Run data migrations
+docker compose run web mix ecto.migrate  --migrations-path priv/repo/data_migrations
 ```
 
 ## How to test a production setup?
 
-This repo have releases setup. You can build a release with:
+Build production docker image
+```bash
+./docker/build-prod.sh
+```
+
+Run production docker image
+```bash
+./docker/run-prod.sh
+```
+
+It will fail first time. You need to run migrations and data migrations
+```bash
+# Pick the docker container id
+docker ps
+
+# Enter the container
+docker exec -it [CONTAINER_ID] /bin/bash
+
+# Run the release migrations
+./bin/migrate
+
+# Run data migrations
+./bin/migrate data
+```
 

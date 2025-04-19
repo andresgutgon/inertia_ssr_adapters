@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+cd -P -- "$(dirname -- "$0")"
+
+MODE=${1:-default}
+
+if [ "$MODE" = "data" ]; then
+  exec ./inertia_ssr_adapters eval "InertiaSsrAdapters.Release.migrate_data()"
+else
+  exec ./inertia_ssr_adapters eval "InertiaSsrAdapters.Release.migrate()"
+fi
+
