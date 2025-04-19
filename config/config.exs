@@ -42,7 +42,7 @@ config :inertia_ssr_adapters, InertiaSsrAdapters.Mailer, adapter: Swoosh.Adapter
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.17.11",
+  version: "0.25.0",
   app: [
     args:
       ~w(js/app.tsx --bundle --target=es2020 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),

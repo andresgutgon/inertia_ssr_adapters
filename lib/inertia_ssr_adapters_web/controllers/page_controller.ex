@@ -4,7 +4,7 @@ defmodule InertiaSsrAdaptersWeb.PageController do
   alias InertiaSsrAdapters.Academy
 
   def home(conn, _params) do
-    ssr = false
+    ssr = true
 
     conn
     |> assign_prop(:ssr, ssr)
